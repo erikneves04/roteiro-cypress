@@ -68,4 +68,25 @@ describe('TODOMvc App', () => {
       .children()
       .should('have.length', 2);
   });
+
+  it('Marca e desmarca uma tarefa como concluída', () => {
+    cy.visit('');
+
+    cy.get('[data-cy=todo-input]')
+      .type('Estudar Cypress{enter}');
+
+    cy.get('[data-cy=todos-list] > li [data-cy=toggle-todo-checkbox]')
+      .check()
+      .should('be.checked');
+
+    cy.get('[data-cy=todos-list] > li')
+      .should('have.class', 'completed');
+
+    cy.get('[data-cy=todos-list] > li [data-cy=toggle-todo-checkbox]')
+      .uncheck()
+      .should('not.be.checked');
+
+    cy.get('[data-cy=todos-list] > li')
+      .should('not.have.class', 'completed');
+  });
 });
