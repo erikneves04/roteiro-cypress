@@ -108,4 +108,26 @@ describe('TODOMvc App', () => {
       .first()
       .should('have.text', 'Revisar conteúdo atualizado');
   });
+
+  it('Limpa todas as tarefas concluídas', () => {
+    cy.visit('');
+
+    cy.get('[data-cy=todo-input]')
+      .type('Fazer exercício 1{enter}')
+      .type('Fazer exercício 2{enter}');
+
+    cy.get('[data-cy=todos-list] > li [type="checkbox"]')
+      .first()
+      .check();
+
+    cy.contains('Clear completed')
+      .should('be.visible')
+      .click();
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 1)
+      .first()
+      .should('have.text', 'Fazer exercício 2');
+  });
 });
