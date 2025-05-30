@@ -89,4 +89,23 @@ describe('TODOMvc App', () => {
     cy.get('[data-cy=todos-list] > li')
       .should('not.have.class', 'completed');
   });
+
+  it('Edita uma tarefa existente', () => {
+    cy.visit('');
+
+    cy.get('[data-cy=todo-input]')
+      .type('Revisar conteúdo{enter}');
+
+    cy.get('[data-cy=todos-list] > li')
+      .dblclick();
+
+    cy.get('[data-cy=todos-list] > li .edit')
+      .clear()
+      .type('Revisar conteúdo atualizado{enter}');
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .first()
+      .should('have.text', 'Revisar conteúdo atualizado');
+  });
 });
